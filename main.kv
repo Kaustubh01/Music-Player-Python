@@ -1,0 +1,157 @@
+<FirstScreen>:
+    RelativeLayout:
+
+        Label:
+            text:'Age:'
+            pos_hint: {'center_x': 0.4, 'center_y': 0.5}
+
+        TextInput:
+            id: age_input
+            size_hint: .1, .05
+            background_color: 0,0,0,1
+            foreground_color: 255,255,255,1
+            pos_hint: {'center_x': 0.6, 'center_y': 0.5}
+            
+        Button:
+            text: "Go to Player"
+            size_hint: .4, .1
+            pos_hint: {'center_x': 0.5, 'center_y': 0.4}
+            on_press:
+                root.manager.transition.direction = 'left'
+                root.manager.current = 'second'
+                root.submit()
+
+
+<SecondScreen>:
+    RelativeLayout:
+        Button:
+            size_hint: .07, .8
+            background_color: 0, 0, 0, 0
+            pos_hint:  {"left":1, "center_y":.5}
+            on_press:
+                root.manager.transition.direction = 'right'
+                root.manager.current = 'first'
+
+        Button:
+            size_hint: .07, .8
+            pos_hint:  {"right":1, "center_y":.5}
+            background_color: 0, 0, 0, 0
+            on_press:
+                root.manager.transition.direction = 'left'
+                root.manager.current = 'third'
+
+        Label:
+            id:song_label
+            text:'Hello ;)'
+            pos_hint: {'center_x':0.5, 'center_y':0.96}
+
+        Label:
+            id: current_time
+            text:'00:00'
+            pos_hint:{'center_x':.16, 'center_y':.145}
+            size_hint: (1,1)
+            font_size: 18
+
+        Label:
+            id: total_time
+            text:'00:00'
+            pos_hint:{'center_x':.84, 'center_y':.145}
+            size_hint: (1,1)
+            font_size: 18
+
+        Image:
+            id: album_image
+            source: 'assets/background/img1.jpg'
+            pos_hint: {'center_x':0.5,'center_y':0.55}
+            size_hint: (0.8,0.75)
+
+        ProgressBar:
+            id: progress_bar
+            max:100
+            value:0
+            pos_hint: {'center_x':0.5,'center_y':0.12}
+            size_hint: (.8,.75)
+            
+
+        Button:
+            id: play
+            text: 'P'
+            size_hint: .1, .1
+            pos_hint: {'center_x':0.4,'center_y':0.05}
+            background_color: 0,0,0,0
+            on_press: root.play_audio()
+
+            Image:
+                source: "assets\play_button.png"
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+            
+        Button:
+            id: stop
+            text: 'S'
+            size_hint: .1, .1
+            pos_hint: {'center_x':0.55,'center_y':0.05}
+            background_color: 0,0,0,0
+            on_press: root.stop_audio()
+
+            Image:
+                source: "assets\stop_button.png"
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+
+        Slider:
+            id:volume_slider
+            text:'volume slider'
+            min:0
+            max:1
+            value:0.5
+            on_value:root.volume(*args)
+            orientation:'horizontal'
+            pos_hint:{'center_x':0.15,'center_y':0.05}
+            size_hint:(.2,.2)
+
+<ThirdScreen>:
+    RelativeLayout:
+
+        Button:
+            size_hint: .07, .8
+            background_color: 0, 0, 0, 0
+            pos_hint:  {"left":1, "center_y":.5}
+            on_press:
+                root.manager.transition.direction = 'right'
+                root.manager.current = 'second'
+
+        GridLayout:
+            rows:2
+            cols:3
+            pos_hint: {'center_x':0.5,'center_y':0.5}
+            Label:
+                text:'Song Name'
+                size_hint:(0.3,0.1)
+                font_size: 24
+            Label:
+                text:'Artist'
+                size_hint:(0.3,0.1)
+                font_size: 24
+            Label:
+                text:'Album'  
+                size_hint:(0.3,0.1)
+                font_size: 24          
+            BoxLayout:
+                orientation:'vertical'
+                text: "Song Name"
+                id: songs_name_list
+                
+                size_hint: (0.8,0.75)
+            BoxLayout:
+                orientation:'vertical'
+                text: "Artist"
+                id: songs_artist_list
+                
+                size_hint: (0.8,0.75)
+            BoxLayout:
+                orientation:'vertical'
+                text: "Album"
+                id: songs_album_list
+            
+                size_hint: (0.8,0.75)
